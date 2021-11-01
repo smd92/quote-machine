@@ -36,3 +36,7 @@
   display: grid;
   padding: 2rem;
 }
+
+.btn {
+  background-color: #282c34;
+}
