@@ -1,22 +1,36 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import React from 'react';
+
+class QuoteMachine extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+
+  render() {
+    return (
+      <main>
+        <QuoteBox />
+      </main>
+    );
+  }
+}
+
+const QuoteBox = (props) => {
+  return (
+    <div id="quote-box">
+      <p id="text">text</p>
+      <p id="author">author</p>
+      <button id="new-quote">new quote</button>
+      <a id="tweet-quote" href="#">tweet quote</a>
+    </div>
+  );
+};
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <QuoteMachine />
       </header>
     </div>
   );
