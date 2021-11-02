@@ -1,40 +1,38 @@
 import "./App.css";
-import React from 'react';
+import React from "react";
 
 class QuoteMachine extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      quote: ""
-    }
+      text: "",
+      author: "",
+    };
+    this.fetchQuote = this.fetchQuote.bind(this);
   }
 
   componentDidMount() {
-    const data = null;
+    this.fetchQuote();
+  }
 
-    const xhr = new XMLHttpRequest();
-    xhr.withCredentials = true;
-    
-    xhr.addEventListener("readystatechange", function () {
-      if (this.readyState === this.DONE) {
-        console.log(this.responseText);
-      }
-    });
-    
-    xhr.open("GET", "https://yusufnb-quotes-v1.p.rapidapi.com/widget/~einstein.json");
-    xhr.setRequestHeader("x-rapidapi-key", "SIGN-UP-FOR-KEY");
-    xhr.setRequestHeader("x-rapidapi-host", "yusufnb-quotes-v1.p.rapidapi.com");
-    
-    xhr.send(data);
-    this.setState({
-      quote: xhr.response
-    });
-    console.log(xhr.response);
+  fetchQuote() {
+    fetch("https://api.quotable.io/random")
+      .then((response) => response.json())
+      .then((data) => {
+        this.setState({
+          text: data.content,
+          author: data.author,
+        });
+      });
   }
 
   render() {
     return (
-      <QuoteBox />
+      <QuoteBox
+        text={`"${this.state.text}"`}
+        author={`- ${this.state.author}`}
+        fetchQuote={this.fetchQuote}
+      />
     );
   }
 }
@@ -42,10 +40,16 @@ class QuoteMachine extends React.Component {
 const QuoteBox = (props) => {
   return (
     <div id="quote-box">
-      <p id="text">text</p>
-      <p id="author">author</p>
-      <button id="new-quote" className="btn btn-primary">new quote</button>
-      <a id="tweet-quote" href="#">tweet quote</a>
+      <p id="text">{props.text}</p>
+      <p id="author">{props.author}</p>
+      <span>
+        <button id="new-quote" className="btn btn-primary" onClick={props.fetchQuote}>
+          new quote
+        </button>
+        <a id="tweet-quote" href="#">
+          tweet quote
+        </a>
+      </span>
     </div>
   );
 };
