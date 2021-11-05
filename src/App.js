@@ -43,12 +43,14 @@ const QuoteBox = (props) => {
       <p id="text">{props.text}</p>
       <p id="author">{props.author}</p>
       <span>
-        <button id="new-quote" className="btn btn-primary" onClick={props.fetchQuote}>
+        <button
+          id="new-quote"
+          className="btn btn-primary"
+          onClick={props.fetchQuote}
+        >
           new quote
         </button>
-        <a id="tweet-quote" href="#">
-          tweet quote
-        </a>
+        <a href="twitter.com">Tweet</a>
       </span>
     </div>
   );
