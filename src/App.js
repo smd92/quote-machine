@@ -1,5 +1,6 @@
 import "./App.css";
 import React from "react";
+import { TwitterShareButton } from "react-twitter-embed";
 
 class QuoteMachine extends React.Component {
   constructor(props) {
@@ -28,16 +29,17 @@ class QuoteMachine extends React.Component {
 
   render() {
     return (
-      <QuoteBox
-        text={`"${this.state.text}"`}
-        author={`- ${this.state.author}`}
-        fetchQuote={this.fetchQuote}
-      />
+        <QuoteBox
+          text={`"${this.state.text}"`}
+          author={`- ${this.state.author}`}
+          fetchQuote={this.fetchQuote}
+        />
     );
   }
 }
 
 const QuoteBox = (props) => {
+  console.log(<TwitterShareButton/>);
   return (
     <div id="quote-box">
       <p id="text">{props.text}</p>
@@ -50,7 +52,10 @@ const QuoteBox = (props) => {
         >
           new quote
         </button>
-        <a href="twitter.com">Tweet</a>
+        <TwitterShareButton
+          url={"https://isna.ir"}
+          options={{ text: `${props.text}` }}
+        />
       </span>
     </div>
   );
