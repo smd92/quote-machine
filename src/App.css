@@ -2,24 +2,13 @@
   text-align: center;
 }
 
-.App-header {
-  background-color: black;
-  min-height: 10vh;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: left;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
 #page-title {
   margin-left: 2vw;
 }
 
 .App-content {
   background-color: #282c34;
-  min-height: 90vh;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -38,6 +27,27 @@
   display: grid;
   padding: 2rem;
   display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+  grid-template-areas:
+  "quote quote"
+  "author-and-tweet author-and-tweet"
+  "new-quote new-quote";
+}
+
+#text {
+  grid-area: quote;
+  font-size: 20px;
+  font-style: italic;
+  font-weight: bold;
+}
+
+#author-and-tweet {
+  grid-area: author-and-tweet;
+}
+
+#new-quote {
+  grid-area: new-quote;
 }
 
 .btn-primary, .btn-primary:active, .btn-primary:visited {

@@ -8,6 +8,7 @@ class QuoteMachine extends React.Component {
     this.state = {
       text: "",
       author: "",
+      fetched: false,
     };
     this.fetchQuote = this.fetchQuote.bind(this);
   }
@@ -23,40 +24,43 @@ class QuoteMachine extends React.Component {
         this.setState({
           text: data.content,
           author: data.author,
+          fetched: true,
         });
       });
   }
 
   render() {
     return (
+      this.state.fetched && (
         <QuoteBox
           text={`"${this.state.text}"`}
           author={`- ${this.state.author}`}
           fetchQuote={this.fetchQuote}
         />
+      )
     );
   }
 }
 
 const QuoteBox = (props) => {
-  console.log(<TwitterShareButton/>);
   return (
     <div id="quote-box">
       <p id="text">{props.text}</p>
-      <p id="author">{props.author}</p>
-      <span>
-        <button
-          id="new-quote"
-          className="btn btn-primary"
-          onClick={props.fetchQuote}
-        >
-          new quote
-        </button>
+      <div id="author-and-tweet">
+        <p id="author">{props.author}</p>
         <TwitterShareButton
-          url={"https://isna.ir"}
-          options={{ text: `${props.text}` }}
+        id="tweet"
+        url={"\n"}
+        options={{ text: `${props.text}\n${props.author}` }}
         />
-      </span>
+      </div>
+      <button
+        id="new-quote"
+        className="btn btn-primary"
+        onClick={props.fetchQuote}
+      >
+        new quote
+      </button>
     </div>
   );
 };
@@ -64,11 +68,9 @@ const QuoteBox = (props) => {
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <p id="page-title">Quote Machine by smd92</p>
-      </header>
       <main className="App-content">
         <QuoteMachine />
+        <p>smd92</p>
       </main>
     </div>
   );
