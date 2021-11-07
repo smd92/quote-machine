@@ -24,30 +24,23 @@
   min-height: 30vh;
   max-width: 30vw;
   max-height: 30vh;
-  display: grid;
   padding: 2rem;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: 1fr 1fr 1fr;
-  grid-template-areas:
-  "quote quote"
-  "author-and-tweet author-and-tweet"
-  "new-quote new-quote";
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 #text {
-  grid-area: quote;
-  font-size: 20px;
   font-style: italic;
   font-weight: bold;
 }
 
-#author-and-tweet {
-  grid-area: author-and-tweet;
-}
-
 #new-quote {
-  grid-area: new-quote;
+  align-self: flex-start;
+  width: 10vw;
+  max-width: 150px;
+  max-height: 50px;
+  font-weight: bold;
 }
 
 .btn-primary, .btn-primary:active, .btn-primary:visited {
