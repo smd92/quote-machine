@@ -9,6 +9,9 @@ class QuoteMachine extends React.Component {
       text: "",
       author: "",
       fetched: false,
+      tsbOptions: { text: "Hallo-Georg" },
+      refresh: null,
+      // { text: `${props.text}\n${props.author}` }
     };
     this.fetchQuote = this.fetchQuote.bind(this);
   }
@@ -18,6 +21,8 @@ class QuoteMachine extends React.Component {
   }
 
   fetchQuote() {
+    this.setState({ fetched: false });
+
     fetch("https://api.quotable.io/random")
       .then((response) => response.json())
       .then((data) => {
@@ -25,6 +30,7 @@ class QuoteMachine extends React.Component {
           text: data.content,
           author: data.author,
           fetched: true,
+          tsbOptions: { text: `${data.content}\n${data.author}` },
         });
       });
   }
@@ -36,6 +42,7 @@ class QuoteMachine extends React.Component {
           text={`"${this.state.text}"`}
           author={`- ${this.state.author}`}
           fetchQuote={this.fetchQuote}
+          options={this.state.tsbOptions}
         />
       )
     );
@@ -46,12 +53,8 @@ const QuoteBox = (props) => {
   return (
     <div id="quote-box">
       <p id="text">{props.text}</p>
-        <p id="author">{props.author}</p>
-        <TwitterShareButton
-        id="tweet"
-        url={"\n"}
-        options={{ text: `${props.text}\n${props.author}` }}
-        />
+      <p id="author">{props.author}</p>
+      <TwitterShareButton id="tweet" url={props.text} options={props.options} />
       <button
         id="new-quote"
         className="btn btn-primary"
