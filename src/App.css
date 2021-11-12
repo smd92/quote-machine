@@ -36,7 +36,7 @@
 }
 
 #new-quote {
-  align-self: flex-start;
+  align-self: center;
   width: 10vw;
   max-width: 150px;
   max-height: 50px;
