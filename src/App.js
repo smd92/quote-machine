@@ -2,16 +2,15 @@ import "./App.css";
 import React from "react";
 import { TwitterShareButton } from "react-twitter-embed";
 
-/*class QuoteMachine extends React.Component {
+class QuoteMachine extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       text: "",
       author: "",
       fetched: false,
-      tsbOptions: { text: "Hallo-Georg" },
-      refresh: null,
-      // { text: `${props.text}\n${props.author}` }
+      tsbOptions: { text: "" },
+      rerenderTsb: true,
     };
     this.fetchQuote = this.fetchQuote.bind(this);
   }
@@ -21,8 +20,6 @@ import { TwitterShareButton } from "react-twitter-embed";
   }
 
   fetchQuote() {
-    this.setState({ fetched: false });
-
     fetch("https://api.quotable.io/random")
       .then((response) => response.json())
       .then((data) => {
@@ -30,7 +27,8 @@ import { TwitterShareButton } from "react-twitter-embed";
           text: data.content,
           author: data.author,
           fetched: true,
-          tsbOptions: { text: `${data.content}\n${data.author}` },
+          tsbOptions: { text: `"${data.content}"\n- ${data.author}` },
+          rerenderTsb: !this.state.rerenderTsb,
         });
       });
   }
@@ -43,6 +41,7 @@ import { TwitterShareButton } from "react-twitter-embed";
           author={`- ${this.state.author}`}
           fetchQuote={this.fetchQuote}
           options={this.state.tsbOptions}
+          rerenderTsb={this.state.rerenderTsb}
         />
       )
     );
@@ -54,73 +53,11 @@ const QuoteBox = (props) => {
     <div id="quote-box">
       <p id="text">{props.text}</p>
       <p id="author">{props.author}</p>
-      <TwitterShareButton id="tweet" url={props.text} options={props.options} />
+      <TwitterShareButton id="tweet" url={`\n`} options={props.options} key={props.rerenderTsb}/>
       <button
         id="new-quote"
         className="btn btn-primary"
         onClick={props.fetchQuote}
-      >
-        new quote
-      </button>
-    </div>
-  );
-};*/
-
-class QuoteMachine extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      text: "",
-      author: "",
-      fetched: false,
-    };
-    this.fetchQuote = this.fetchQuote.bind(this);
-  }
-
-  componentDidMount() {
-    this.fetchQuote();
-  }
-
-  fetchQuote() {
-    this.setState({
-      fetched: false,
-    });
-    fetch("https://api.quotable.io/random")
-      .then((response) => response.json())
-      .then((data) => {
-        this.setState({
-          text: data.content,
-          author: data.author,
-          fetched: true,
-        });
-      });
-  }
-
-  render() {
-    return (
-      this.state.fetched && (
-        <div>
-          <TwitterShareButton
-            id="tweet"
-            url={"\n"}
-            options={{ text: `${this.state.text}\n${this.state.author}` }}
-          />
-          <noRerender />
-        </div>
-      )
-    );
-  }
-}
-
-const noRerender = (props) => {
-  return (
-    <div id="quote-box">
-      <p id="text">{props.text}</p>
-      <p id="author">{props.author}</p>
-      <button
-        id="new-quote"
-        className="btn btn-primary"
-        onClick={this.fetchQuote}
       >
         new quote
       </button>
@@ -133,7 +70,7 @@ function App() {
     <div className="App">
       <main className="App-content">
         <QuoteMachine />
-        <p>smd92</p>
+        <p>by smd92</p>
       </main>
     </div>
   );
