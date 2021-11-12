@@ -8,7 +8,6 @@ class QuoteMachine extends React.Component {
     this.state = {
       text: "",
       author: "",
-      fetched: false,
       tsbOptions: { text: "" },
       rerenderTsb: true,
     };
@@ -26,7 +25,6 @@ class QuoteMachine extends React.Component {
         this.setState({
           text: data.content,
           author: data.author,
-          fetched: true,
           tsbOptions: { text: `"${data.content}"\n- ${data.author}` },
           rerenderTsb: !this.state.rerenderTsb,
         });
@@ -35,15 +33,13 @@ class QuoteMachine extends React.Component {
 
   render() {
     return (
-      this.state.fetched && (
-        <QuoteBox
-          text={`"${this.state.text}"`}
-          author={`- ${this.state.author}`}
-          fetchQuote={this.fetchQuote}
-          options={this.state.tsbOptions}
-          rerenderTsb={this.state.rerenderTsb}
-        />
-      )
+      <QuoteBox
+        text={`"${this.state.text}"`}
+        author={`- ${this.state.author}`}
+        fetchQuote={this.fetchQuote}
+        options={this.state.tsbOptions}
+        rerenderTsb={this.state.rerenderTsb}
+      />
     );
   }
 }
@@ -53,7 +49,12 @@ const QuoteBox = (props) => {
     <div id="quote-box">
       <p id="text">{props.text}</p>
       <p id="author">{props.author}</p>
-      <TwitterShareButton id="tweet" url={`\n`} options={props.options} key={props.rerenderTsb}/>
+      <TwitterShareButton
+        id="tweet"
+        url={`\n`}
+        options={props.options}
+        key={props.rerenderTsb}
+      />
       <button
         id="new-quote"
         className="btn btn-primary"
